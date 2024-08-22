@@ -15,10 +15,3 @@ class Database:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 db = SQLAlchemy()
-
-class S3Client:
-    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-    AWS_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME')
-    AWS_S3_ENDPOINT_URL = os.getenv('AWS_S3_ENDPOINT_URL')  # URL для S3 Selectel
-    S3_UPLOAD_DIRECTORY = 'uploads/'

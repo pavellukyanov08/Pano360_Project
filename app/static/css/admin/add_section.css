@@ -94,28 +94,6 @@ form {
     border: 2px solid lightgrey;
 }
 
-
-/* Скрываем стандартное поле загрузки */
-.file-input {
-    display: none;
-}
-
-/* Стилизация кастомной кнопки */
-.custom-file-upload {
-    padding: 10px 15px;
-    cursor: pointer;
-    color: #0e2739;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    column-gap: 10px;
-    font-size: 16px;
-    text-align: center;
-    font-weight: 500;
-    border: 2px solid lightgrey;
-}
-
 .submit-row .submit {
     width: 100%;
     background-color: #06c267;

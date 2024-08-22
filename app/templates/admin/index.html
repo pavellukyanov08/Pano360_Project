@@ -13,4 +13,19 @@
             <a class="add-new-section" href="{{ url_for('section.add_section') }}">Новый раздел</a>
         </div>
     </div>
+
+
+    <table class="section-tape">
+        <tr>
+            <th>Сортировка</th>
+            <th>Наименование раздела</th>
+            <th>Количество проектов</th>
+        </tr>
+
+        <tr>
+            {% for section in sections %}
+            <td>{{ section.title }}</td>
+            {% endfor %}
+        </tr>
+    </table>
 {% endblock %}

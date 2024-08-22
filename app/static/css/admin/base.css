@@ -41,6 +41,12 @@ h1, h2, h3, h4, p, ul, li {
     border-right: 5px solid #019ef4;
 }
 
+.sections-list__item a {
+    text-decoration: none;
+    color: #000000;
+}
+
+
 /* HEADER */
 section {
     width: 100%;

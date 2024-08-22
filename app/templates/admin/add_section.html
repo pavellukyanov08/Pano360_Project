@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/add_section.css') }}">
+{#    <link rel="stylesheet" href="{{ url_for('static', filename='js/section-preview.js') }}">#}
     <title>Добавление раздела</title>
 </head>
 <body>
@@ -55,11 +56,18 @@
             </p>
 
             <p class="form-row">
+                {{ add_form.cover_proj.label(id="label_cover-proj") }}
                 {{ add_form.cover_proj(id="input_cover-proj", class="file-input") }}
-                <label for="input_cover-proj" id="custom-label" class="custom-file-upload">
-                    <i class="fa fa-cloud-upload">Загрузите обложку</i>
-                    <img src="{{ url_for('static', filename='admin/upload-cover-icon.svg') }}" alt="">
-                </label>
+{#                <label for="input_cover-proj" id="custom-label" class="custom-file-upload">#}
+{#                    <span>Загрузите обложку</span>#}
+{#                    <img src="{{ url_for('static', filename='admin/upload-cover-icon.svg') }}" alt="">#}
+{#                </label>#}
+
+{#                <span id="file-preview" class="file-preview">#}
+{#                    <img id="preview-img" src="" alt="Preview" style="display: none;">#}
+{#                    <span id="file-name"></span>#}
+{#                </span>#}
+
                 {% for error in add_form.cover_proj.errors %}
                     <span class="text-danger">{{ error }}</span>
                 {% endfor %}
@@ -70,6 +78,5 @@
             </div>
         </form>
     </section>
-
 </body>
 </html>

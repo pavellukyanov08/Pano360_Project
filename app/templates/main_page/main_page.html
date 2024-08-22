@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main_page/main_page.css') }}">
+    <title>Главная</title>
+</head>
+<body>
+    {% for section in sections %}
+        {{ section.title }}
+        {{ section.description }}
+        {{ section.sort_in_list }}
+        <img src="{{ section.cover_proj.url }}" alt="">
+    {% endfor %}
+</body>
+</html>
