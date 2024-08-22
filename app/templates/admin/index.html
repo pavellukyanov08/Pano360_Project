@@ -1,0 +1,16 @@
+{% extends 'admin/base.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/admin.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="panorama-section">
+        <h1>Разделы панорам</h1>
+
+        <div class="add-new-section-block">
+            <img src="{{ url_for('static', filename='admin/add-section-icon.svg') }}" alt="">
+            <a class="add-new-section" href="{{ url_for('section.add_section') }}">Новый раздел</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% block css %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/register.css') }}">
+    {% endblock %}
+    <title>Login in | Pano360 admin</title>
+</head>
+<body>
+    <header class="login__pano360__logo">
+        <img src="{{ url_for('static', filename='logo/pano360-logo.svg') }}" alt="Логотип">
+    </header>
+
+    <div class="registration-block">
+        <h2 class="registration__header">Регистрация</h2>
+
+        <form action="" method="post">
+            {{ reg_form.hidden_tag() }}
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <p class="form-row">
+                {{ reg_form.username.label(id="label_username") }}
+                {{ reg_form.username(id="input_username", placeholder="Введите имя пользователя") }}
+                {% for error in reg_form.username.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </p>
+
+            <p class="form-row">
+                {{ reg_form.password.label(id="label_password") }}
+                {{ reg_form.password(id="input_password", placeholder="Введите пароль") }}
+                {% for error in reg_form.password.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </p>
+
+            <p class="form-row">
+                {{ reg_form.confirm_password.label(id="confirm_label_password") }}
+                {{ reg_form.confirm_password(id="confirm_input_password", placeholder="Введите пароль") }}
+                {% for error in reg_form.confirm_password.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </p>
+
+            <div class="submit-row">
+                <button class="submit" type="submit" value="Зарегистрироваться">Зарегистрироваться</button>
+            </div>
+
+            <p>Не имеете аккаунта? <a id="login-link" href="{{ url_for('login.login') }}">Авторизуйтесь!</a></p>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{#{% extends 'admin/master.html' %}#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/base.css') }}">
+    {% block css %}
+    {% endblock %}
+    <title>Pano360 | Admin panel</title>
+</head>
+<body>
+    <aside class="admin__left-panel">
+        <div class="left-panel__pano360__logo">
+            <img src="{{ url_for('static', filename='logo/pano360-logo.svg') }}" alt="Логотип">
+        </div>
+        <ul class="left-panel__sections-list">
+            <li class="sections-list__item">Разделы панорам</li>
+            <li class="sections-list__item">Главная</li>
+        </ul>
+    </aside>
+
+    <section>
+        <header>
+            <div class="user-block">
+                {% if user %}
+                    <p id="user-name">
+                        {{ user.username }}
+                        <img src="{{ url_for('static', filename='admin/arrow-down.svg') }}" alt="">
+                    </p>
+                    <p id="user-role">{{ user.role.name }}</p>
+
+                    <a id="user-logout" href="{{ url_for('logout.logout') }}">Выйти</a>
+                {% endif %}
+            </div>
+        </header>
+
+        {% block content %}
+
+        {% endblock %}
+    </section>
+</body>

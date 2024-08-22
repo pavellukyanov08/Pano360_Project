@@ -1,0 +1,39 @@
+html, body {
+    height: 100%;
+    /*background-color: #ffffff;*/
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+}
+
+h1, h2, h3, h4, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/*  */
+.panorama-section {
+    padding: 30px;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+.add-new-section {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.add-new-section-block {
+    background-color: #06c267;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: max-content;
+    display: flex;
+    align-items: center;
+    column-gap: 7px;
+}

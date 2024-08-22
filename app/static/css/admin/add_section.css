@@ -1,0 +1,131 @@
+/* ADD SECTION */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #e9eff4;
+    font-family: 'Inter', 'Arial', sans-serif;
+}
+
+h1, h2, h3, h4, p, label, input, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+.login__pano360__logo {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 20px 0;
+}
+
+h2 {
+    text-align: center;
+    padding-bottom: 20px;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+/* Redefined bootstrap styles */
+.alert {
+    padding: 10px 50px 10px 10px;
+    margin: 0;
+}
+
+.alert-dismissible .btn-close {
+    padding: 10px;
+    top: 5px;
+    right: 5px;
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+    padding-left: 20px;
+    list-style: none;
+    display: flex;
+    column-gap: 10px;
+}
+
+.breadcrumb-item a {
+    color: #000000;
+    text-decoration: none;
+}
+
+
+section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 5% auto;
+}
+
+form {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    border: 2px solid lightgrey;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 500px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    min-width: 370px;
+}
+
+#label_title,
+#label_description,
+#label_sort-in-list,
+#label_cover-proj {
+    font-size: 17px;
+    font-weight: 600;
+    padding-bottom: 7px;
+}
+
+#input_title,
+#input_description,
+#input_sort-in-list,
+#input_cover-proj {
+    padding: 10px;
+    font-size: 17px;
+    border-radius: 10px;
+    border: 2px solid lightgrey;
+}
+
+
+/* Скрываем стандартное поле загрузки */
+.file-input {
+    display: none;
+}
+
+/* Стилизация кастомной кнопки */
+.custom-file-upload {
+    padding: 10px 15px;
+    cursor: pointer;
+    color: #0e2739;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 500;
+    border: 2px solid lightgrey;
+}
+
+.submit-row .submit {
+    width: 100%;
+    background-color: #06c267;
+    font-size: 15px;
+    padding: 10px 0;
+    border-radius: 10px;
+    border: 0;
+}
+
+.submit {
+    color: #ffffff;
+    margin-top: 30px;
+}

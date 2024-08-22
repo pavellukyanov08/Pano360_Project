@@ -1,0 +1,75 @@
+html, body {
+    height: 100%;
+    /*background-color: #ffffff;*/
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    font-family: 'Inter', 'Arial', sans-serif;
+}
+
+h1, h2, h3, h4, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* ASIDE */
+
+.admin__left-panel {
+    background-color: #e9eff4;
+    min-width: 250px;
+}
+
+.left-panel__pano360__logo {
+    padding: 15px 0 15px 10px;
+    border-bottom: 2px solid #e3e8ed;
+}
+
+.left-panel__sections-list {
+    list-style: none;
+    font-size: 20px;
+}
+
+.sections-list__item {
+    padding: 15px 0 15px 15px;
+}
+
+.sections-list__item:active {
+    background-color: #ffffff;
+    border-right: 5px solid #019ef4;
+}
+
+/* HEADER */
+section {
+    width: 100%;
+}
+
+header {
+    border-bottom: 1px solid #e3e8ed;
+    text-align: right;
+}
+
+.user-block {
+    margin-right: 30px;
+    padding: 10px 0;
+}
+
+#user-name {
+    font-weight: 600;
+    font-size: 17px;
+}
+
+#user-role {
+    font-size: 17px;
+}
+
+#user-logout {
+    text-decoration: none;
+    color: #000000;
+}
+
+#user-logout:hover {
+    text-decoration: underline;
+}

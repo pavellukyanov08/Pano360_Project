@@ -1,0 +1,104 @@
+/* LOGIN FORM */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #e9eff4;
+}
+
+h1, h2, h3, h4, p, label, input {
+    margin: 0;
+    padding: 0;
+}
+
+.login__pano360__logo {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 0 0;
+}
+
+.authorization-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10% auto auto auto;
+}
+
+.authorization__header {
+    text-align: center;
+    padding-bottom: 20px;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+/* Redefined bootstrap styles */
+.alert {
+    padding: 10px 50px 10px 10px;
+    margin: 0;
+}
+
+.alert-dismissible .btn-close {
+    padding: 10px;
+    top: 5px;
+    right: 5px;
+}
+
+form {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    border: 2px solid lightgrey;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    min-width: 370px;
+}
+
+#label_email,
+#label_password {
+    font-size: 17px;
+    font-weight: 600;
+    padding-bottom: 7px;
+}
+
+#input_password,
+#input_email {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid #c2cdd6;
+    border-radius: 10px;
+}
+
+#input_username::placeholder,
+#input_password::placeholder {
+    font-size: 15px;
+}
+
+.submit-row .submit {
+    width: 100%;
+    background-color: #06c267;
+    font-size: 15px;
+    padding: 10px 0;
+    border-radius: 10px;
+    border: 0;
+}
+
+.submit {
+    color: #ffffff;
+    margin-top: 15px;
+}
+
+#register-link {
+    color: lightcoral;
+    font-size: 17px;
+    text-decoration: none;
+}
+
+#register-link:hover {
+    text-decoration: underline;
+}
