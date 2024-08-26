@@ -1,0 +1,4 @@
+.sections-tape {
+    display: flex;
+    flex-direction: column;
+}

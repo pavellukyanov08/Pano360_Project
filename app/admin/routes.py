@@ -1,25 +1,26 @@
 import os
-from flask_admin import Admin, BaseView, AdminIndexView, expose
+from flask_admin import AdminIndexView, expose
 from werkzeug.utils import secure_filename
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, send_from_directory
 
 from app.auth.models import User
 from .forms import SectionForm
 from .models import Section
 from ..config import db
 
-class MainAdminDashboard(AdminIndexView):
-    @expose('/')
-    def index(self):
-        current_user = User.query.first()
-        return self.render('admin/index.html', user=current_user)
+class SectionView(AdminIndexView):
+    def get_image(self, filename):
+        if filename:
+            return url_for('static', filename=os.path.join('uploads', filename))
+        return None
 
-
-class SectionView(BaseView):
     @expose('/')
     def index(self):
         current_user = User.query.first()
         sections = Section.query.all()
+
+        for section in sections:
+            section.image_url = self.get_image(section.cover_proj)
 
         return self.render('admin/index.html', user=current_user, sections=sections)
 
@@ -62,6 +63,8 @@ class SectionView(BaseView):
             return redirect(url_for('admin.index'))
 
         return render_template('admin/add_section.html', add_form=add_form, breadcrumbs=breadcrumbs)
+
+
 
 
 

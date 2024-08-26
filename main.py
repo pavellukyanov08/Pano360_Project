@@ -9,7 +9,7 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 
 from app.config import Database, db
-from app.admin.routes import MainAdminDashboard, SectionView
+from app.admin.routes import SectionView
 from app.auth.models import User
 
 from app.auth.routes import (
@@ -18,7 +18,7 @@ from app.auth.routes import (
     logout_user_page
 )
 
-from app.main_page.routes import main_page
+from app.main_page.routes import MainPage
 
 migrate = Migrate()
 
@@ -43,13 +43,12 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-admin = Admin(app, name='Pano360 | Admin panel', index_view=MainAdminDashboard(), template_mode='bootstrap4')
-admin.add_view(SectionView(name='Sections', endpoint='section'))
+admin = Admin(app, name='Pano360 | Admin panel', index_view=SectionView(), template_mode='bootstrap4')
 
 
 # Main page
-app.register_blueprint(main_page)
-
+main_page = MainPage(app)
+app.register_blueprint(main_page.main_page)
 
 # Auth
 app.register_blueprint(reg_user_page)
