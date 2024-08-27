@@ -17,7 +17,7 @@
     <table>
         <thead>
             <tr>
-                <th>Сортировка</th>
+                <th>Сортировка <img src="{{ url_for('static', filename='admin/sort-icon.svg') }}" alt=""> </th>
                 <th></th>
                 <th>Наименование раздела</th>
                 <th>Кол-во проектов</th>
@@ -35,7 +35,7 @@
                             Отсуствует
                         {% endif %}
                     </td>
-                    <td>{{ section.title }}</td>
+                    <td><a href="">{{ section.title }}</a></td>
                 </tr>
             {% endfor %}
         </tbody>

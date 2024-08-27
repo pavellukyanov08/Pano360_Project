@@ -14,14 +14,32 @@ class SectionView(AdminIndexView):
     _cache_limit = 100
 
     def get_image(self, filename):
-        if filename:
-            return url_for('static', filename=os.path.join('uploads', filename))
-        return None
+        if not filename:
+            # return url_for('static', filename=os.path.join('uploads', filename))
+            return None
+
+        if filename in self._image_cache:
+            self._image_cache.move_to_end(filename)
+            print(f'Проверка кэша: {self._image_cache}')
+        else:
+            if len(self._image_cache) > self._cache_limit:
+                self._image_cache.popitem(last=False)
+
+            # Добавление нового элемента в кэш
+            self._image_cache[filename] = url_for('static', filename=f'uploads/{filename}')
+        print(f'Кэш: {self._image_cache[filename]}')
+        return self._image_cache[filename]
+
+    def clear_cache(self):
+        self._image_cache.clear()
+
 
     @expose('/')
     def index(self):
         current_user = User.query.first()
         sections = Section.query.all()
+
+
 
         for section in sections:
             section.image_url = self.get_image(section.cover_proj)
