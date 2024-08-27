@@ -1,7 +1,8 @@
 import os
 from flask_admin import AdminIndexView, expose
 from werkzeug.utils import secure_filename
-from flask import render_template, redirect, url_for, send_from_directory
+from flask import render_template, redirect, url_for
+from collections import OrderedDict
 
 from app.auth.models import User
 from .forms import SectionForm
@@ -9,6 +10,9 @@ from .models import Section
 from ..config import db
 
 class SectionView(AdminIndexView):
+    _image_cache = OrderedDict()
+    _cache_limit = 100
+
     def get_image(self, filename):
         if filename:
             return url_for('static', filename=os.path.join('uploads', filename))

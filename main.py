@@ -26,6 +26,7 @@ app = Flask(__name__, template_folder='app/templates', static_folder='app/static
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config.from_object(Database)
+
 db.init_app(app)
 
 
