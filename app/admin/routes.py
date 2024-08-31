@@ -89,7 +89,7 @@ class MainAdminPage(AdminIndexView):
 
         return render_template('admin/add_section.html', add_form=add_form, breadcrumbs=breadcrumbs)
 
-    @expose('/edit/<int:idx>/', methods=('GET', 'POST'))
+    @expose('/edit/<int:idx>', methods=('GET', 'POST'))
     @login_required
     def edit_section(self, idx):
         section = Section.query.get_or_404(idx)
@@ -100,9 +100,9 @@ class MainAdminPage(AdminIndexView):
 
             db.session.commit()
             # flash('section updated successfully!')
-            return redirect(url_for('sections_base.get_sections'))
+            return redirect(url_for('admin.index'))
 
-        return render_template('admin/edit_section.html',edit_form=edit_form)
+        return render_template('admin/edit_section.html', edit_form=edit_form)
     
     @expose('/delete/<int:idx>', methods=('GET', 'POST'))
     @login_required

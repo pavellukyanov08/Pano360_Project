@@ -2,9 +2,81 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/add_section.css') }}">
+{#    <link rel="stylesheet" href="{{ url_for('static', filename='js/section-preview.js') }}">#}
+    <title>Редактирование раздела</title>
 </head>
 <body>
+    <header class="login__pano360__logo">
+        <img src="{{ url_for('static', filename='logo/pano360-logo.svg') }}" alt="Логотип">
+    </header>
 
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            {% for crumb in breadcrumbs %}
+                <li class="breadcrumb-item {% if loop.last %}active{% endif %}">
+                    {% if not loop.last %}
+                        <a href="{{ crumb.url }}">{{ crumb.name }}</a>
+                    {% else %}
+                        {{ crumb.name }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    <section>
+        <h2>Редактирование раздела</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {{ edit_form.hidden_tag() }}
+
+            <p class="form-row">
+                {{ edit_form.title.label(id="label_title") }}
+                {{ edit_form.title(id="input_title") }}
+                {% for error in edit_form.title.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </p>
+
+            <p class="form-row">
+                {{ edit_form.description.label(id="label_description") }}
+                {{ edit_form.description(id="input_description", placeholder="Введите описание") }}
+                {% for error in edit_form.description.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </p>
+
+            <p class="form-row">
+                {{ edit_form.sort_in_list.label(id="label_sort-in-list") }}
+                {{ edit_form.sort_in_list(id="input_sort-in-list", placeholder="Номер по умолчанию: 500") }}
+                {% for error in edit_form.sort_in_list.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </p>
+
+            <p class="form-row">
+                {{ edit_form.cover_proj.label(id="label_cover-proj") }}
+                {{ edit_form.cover_proj(id="input_cover-proj", class="file-input") }}
+{#                <label for="input_cover-proj" id="custom-label" class="custom-file-upload">#}
+{#                    <span>Загрузите обложку</span>#}
+{#                    <img src="{{ url_for('static', filename='admin/upload-cover-icon.svg') }}" alt="">#}
+{#                </label>#}
+
+{#                <span id="file-preview" class="file-preview">#}
+{#                    <img id="preview-img" src="" alt="Preview" style="display: none;">#}
+{#                    <span id="file-name"></span>#}
+{#                </span>#}
+
+                {% for error in edit_form.cover_proj.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </p>
+
+            <div class="submit-row">
+                <button class="submit" type="submit" value="Войти">Сохранить</button>
+            </div>
+        </form>
+    </section>
 </body>
 </html>
