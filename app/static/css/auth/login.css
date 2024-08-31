@@ -79,6 +79,12 @@ form {
     font-size: 15px;
 }
 
+.remember-me {
+    display: flex;
+    text-align: left;
+    column-gap: 10px;
+}
+
 .submit-row .submit {
     width: 100%;
     background-color: #06c267;

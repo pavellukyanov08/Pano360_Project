@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, flash, redirect, url_for
-from flask_login import login_required, logout_user, login_user
+from flask import Blueprint, render_template, flash, redirect, url_for, request, session
+from flask_login import login_required, logout_user, login_user, current_user
 
 from .forms import RegistrationForm, LoginForm
 from .models import User
@@ -42,19 +42,26 @@ def register():
 
 @log_user_page.route("/admin/login", methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('admin.index'))
+
     login_form = LoginForm()
 
     if login_form.validate_on_submit():
         try:
             user = User.query.filter_by(username=login_form.username.data).first()
-            if user:
-                if user.verify_password(login_form.password.data):
-                    login_user(user)
-                    return redirect(url_for('admin.index'))
-                else:
-                    flash("Неверное или пользователя или пароль!", "danger")
+            if user and user.verify_password(login_form.password.data):
+                remember_me = True if login_form.remember_me.data else False
+                login_user(user, remember=remember_me)
+
+                # if remember_me:
+                #     session.permanent = True
+                # else:
+                #     session.permanent = False
+
+                return redirect(url_for('admin.index'))
             else:
-                flash("Такого пользователя не существует!", 'danger')
+                flash("Неверное или пользователя или пароль!", "danger")
         except Exception as e:
             flash(str(e), "danger")
     return render_template('auth/login.html', login_form=login_form)

@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 import os
@@ -15,3 +17,13 @@ class Database:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 db = SQLAlchemy()
+
+class Session:
+    PERMANENT_SESSION_LIFETIME = timedelta(weeks=1)
+    SESSION_PERMANENT = False
+
+class Cookies:
+    REMEMBER_COOKIE_DURATION = timedelta(weeks=1)
+    REMEMBER_COOKIE_SECURE = True  # Кука передается только по HTTPS
+    REMEMBER_COOKIE_HTTPONLY = True  # Кука недоступна через JavaScript
+    REMEMBER_COOKIE_SAMESITE = 'Lax'  # Защита от CSRF атак

@@ -10,11 +10,6 @@ class RegistrationForm(FlaskForm):
         Length(5, 50, message="Имя пользователя должно содержать от 4 до 50 символов")
     ])
 
-    # email = StringField('Емайл', validators=[
-    #     Email(),
-    #     Length(10, 50, message="Введите действительный емайл")
-    # ])
-
     password = PasswordField('Пароль', validators=[
         DataRequired(),
         Length(min=5, message='Пароль должен содержать минимум 5 символов')

@@ -17,6 +17,7 @@ h1, h2, h3, h4, p, ul, li {
 
 /* ASIDE */
 
+/* Highlighting active tab*/
 .admin__left-panel {
     background-color: #e9eff4;
     min-width: 250px;
@@ -36,7 +37,7 @@ h1, h2, h3, h4, p, ul, li {
     padding: 15px 0 15px 15px;
 }
 
-.sections-list__item:active {
+.sections-list__item.active {
     background-color: #ffffff;
     border-right: 5px solid #019ef4;
 }

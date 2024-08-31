@@ -46,6 +46,11 @@
                     <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             </p>
+                     
+            <p class="remember-me">
+                {{ login_form.remember_me(id="input_remember-me") }}
+                {{ login_form.remember_me.label(id="label_remember-me") }}
+            </p>
 
             <div class="submit-row">
                 <button class="submit" type="submit" value="Войти">Авторизоваться</button>
