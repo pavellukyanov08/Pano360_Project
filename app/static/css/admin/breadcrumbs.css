@@ -1,0 +1,23 @@
+/* Breadcrumbs */
+nav {
+    display: flex;
+}
+.breadcrumb {
+    list-style: none;
+    display: flex;
+    column-gap: 10px;
+    max-width: max-content;
+    padding: 13px;
+    background-color: #ffffff;
+    border-right: 3px solid #019ef4;
+}
+
+.breadcrumb-item a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

@@ -97,7 +97,7 @@ class MainAdminPage(AdminIndexView):
 
             return redirect(url_for('admin.index'))
 
-        return render_template('admin/add_project.html', add_section=add_section, breadcrumbs=breadcrumbs)
+        return render_template('admin/add_section.html', add_section=add_section, breadcrumbs=breadcrumbs)
 
     @expose('/edit/<int:section_id>', methods=('GET', 'POST'))
     @login_required
