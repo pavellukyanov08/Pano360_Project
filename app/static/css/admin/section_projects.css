@@ -1,0 +1,171 @@
+html, body {
+    height: 100%;
+    /*background-color: #ffffff;*/
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+}
+
+h1, h2, h3, h4, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.panorama-info, table {
+    padding: 30px 0 30px 30px;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+/* Adding new section block */
+#section-image {
+    max-width: 100px;
+    border-radius: 10px;
+}
+
+#section-image,
+#section-title,
+#section-desc{
+    margin-bottom: 20px;
+}
+
+.open-sec-lib {
+    display: flex;
+    align-items: center;
+    padding: 7px;
+    max-width: max-content;
+    border-radius: 10px;
+    column-gap: 10px;
+    background-color: #e9eff4;
+    margin-bottom: 35px;
+}
+
+.open-sec-lib a {
+    color: #0E2739;
+    font-weight: 500;
+}
+
+.projects-type__header {
+    margin-bottom: 10px;
+}
+
+.projects-type {
+    width: 500px;
+    border: 2px solid #d9dfe5;
+    padding: 2px;
+    border-radius: 7px;
+    display: flex;
+    margin-bottom: 35px;
+}
+
+.projects-type button {
+    border: 0;
+    background-color: #e9eff4;
+    border-radius: 3px;
+    padding: 5px;
+    width: 50%;
+}
+
+.section-projects {
+    margin-bottom: 20px;
+}
+
+.add-new-project-block {
+    background-color: #06c267;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: max-content;
+    display: flex;
+    align-items: center;
+    column-gap: 7px;
+}
+
+.add-new-project-block a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* Sections table */
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 10px 0;
+}
+
+table thead th {
+    font-weight: 500;
+    text-align: left;
+}
+
+table tbody td {
+    font-weight: 400;
+    text-align: left;
+    vertical-align: top;
+}
+
+table tbody img {
+    border-radius: 10px;
+    max-width: 100px;
+}
+
+table thead tr th,
+table tbody tr td {
+    border-bottom: 1px solid lightgrey;
+    padding: 15px 0 15px 0;
+}
+
+/* Sorting */
+table thead th:nth-child(1),
+table tbody td:nth-child(1) {
+    width: 130px;
+}
+
+/* Section's cover */
+table thead th:nth-child(2),
+table tbody td:nth-child(2) {
+    width: 120px;
+}
+
+/* Section's name */
+table thead th:nth-child(3),
+table tbody td:nth-child(3) {
+    width: 550px;
+}
+
+/* Nums proj */
+table thead th:nth-child(4),
+table tbody td:nth-child(4) {
+    width: 200px;
+}
+
+/* Section's manage */
+table thead th:nth-child(5),
+table tbody td:nth-child(5) {
+    width: 220px;
+}
+
+table tbody .section_manage {
+    /*text-align: center;*/
+    vertical-align: center;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 20px;
+}
+
+#delete-section {
+    margin-left: 20px;
+}

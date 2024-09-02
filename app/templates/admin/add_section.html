@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/add_section.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/add_project.css') }}">
 {#    <link rel="stylesheet" href="{{ url_for('static', filename='js/section-preview.js') }}">#}
     <title>Добавление раздела</title>
 </head>
@@ -29,35 +29,35 @@
         <h2>Создать новый раздел</h2>
 
         <form method="post" enctype="multipart/form-data">
-            {{ add_form.hidden_tag() }}
+            {{ add_project.hidden_tag() }}
 
             <p class="form-row">
-                {{ add_form.title.label(id="label_title") }}
-                {{ add_form.title(id="input_title") }}
-                {% for error in add_form.title.errors %}
+                {{ add_project.title.label(id="label_title") }}
+                {{ add_project.title(id="input_title") }}
+                {% for error in add_project.title.errors %}
                     <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             </p>
 
             <p class="form-row">
-                {{ add_form.description.label(id="label_description") }}
-                {{ add_form.description(id="input_description", placeholder="Введите описание") }}
-                {% for error in add_form.description.errors %}
+                {{ add_project.description.label(id="label_description") }}
+                {{ add_project.description(id="input_description", placeholder="Введите описание") }}
+                {% for error in add_project.description.errors %}
                     <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             </p>
 
             <p class="form-row">
-                {{ add_form.sort_in_list.label(id="label_sort-in-list") }}
-                {{ add_form.sort_in_list(id="input_sort-in-list", placeholder="Номер по умолчанию: 500") }}
-                {% for error in add_form.sort_in_list.errors %}
+                {{ add_project.sort_in_list.label(id="label_sort-in-list") }}
+                {{ add_project.sort_in_list(id="input_sort-in-list", placeholder="Номер по умолчанию: 500") }}
+                {% for error in add_project.sort_in_list.errors %}
                     <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             </p>
 
             <p class="form-row">
-                {{ add_form.cover_proj.label(id="label_cover-proj") }}
-                {{ add_form.cover_proj(id="input_cover-proj", class="file-input") }}
+                {{ add_project.cover_proj.label(id="label_cover-proj") }}
+                {{ add_project.cover_proj(id="input_cover-proj", class="file-input") }}
 {#                <label for="input_cover-proj" id="custom-label" class="custom-file-upload">#}
 {#                    <span>Загрузите обложку</span>#}
 {#                    <img src="{{ url_for('static', filename='admin/upload-cover-icon.svg') }}" alt="">#}
@@ -68,7 +68,7 @@
 {#                    <span id="file-name"></span>#}
 {#                </span>#}
 
-                {% for error in add_form.cover_proj.errors %}
+                {% for error in add_project.cover_proj.errors %}
                     <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             </p>

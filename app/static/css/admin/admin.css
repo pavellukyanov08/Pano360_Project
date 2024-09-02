@@ -50,28 +50,20 @@ table {
     border-spacing: 10px 0;
 }
 
-table thead tr th {
-    font-weight: 500;
-}
-
-table tbody tr td {
-    font-weight: 400;
-}
-
-table tbody td img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 10px;
-}
-
 table thead th {
+    font-weight: 500;
     text-align: left;
 }
 
 table tbody td {
-    text-align: left; /* Горизонтальное выравнивание по центру */
-    vertical-align: top; /* Вертикальное выравнивание по центру */
+    font-weight: 400;
+    text-align: left;
+    vertical-align: top;
+}
+
+table tbody img {
+    border-radius: 10px;
+    max-width: 100px;
 }
 
 table thead tr th,
@@ -80,25 +72,48 @@ table tbody tr td {
     padding: 15px 0 15px 0;
 }
 
+/* Sorting */
 table thead th:nth-child(1),
 table tbody td:nth-child(1) {
-    width: 150px;
+    width: 130px;
 }
 
+/* Section's cover */
 table thead th:nth-child(2),
 table tbody td:nth-child(2) {
     width: 120px;
 }
 
+/* Section's name */
 table thead th:nth-child(3),
 table tbody td:nth-child(3) {
-    width: 700px;
+    width: 550px;
 }
 
+/* Nums proj */
 table thead th:nth-child(4),
 table tbody td:nth-child(4) {
-    width: auto;
+    width: 200px;
 }
 
-table tbody tr td {
+/* Section's manage */
+table thead th:nth-child(5),
+table tbody td:nth-child(5) {
+    width: 220px;
+}
+
+table tbody .section_manage {
+    /*text-align: center;*/
+    vertical-align: center;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 20px;
+}
+
+#delete-section {
+    margin-left: 20px;
 }
