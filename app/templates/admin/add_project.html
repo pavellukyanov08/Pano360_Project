@@ -8,10 +8,8 @@
 </head>
 <body>
     <header class="login__pano360__logo">
-        <img src="{{ url_for('static', filename='logo/pano360-logo.svg') }}" alt="Логотип">
+        <a href="{{ url_for('admin.index') }}"><img src="{{ url_for('static', filename='logo/pano360-logo.svg') }}" alt="Логотип"></a>
     </header>
-
-    {% include 'admin/breadcrumbs.html' %}
 
     <section>
         <h2>Создать новый проект</h2>

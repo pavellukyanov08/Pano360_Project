@@ -39,6 +39,9 @@ app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 migrate.init_app(app, db, directory='app/migrations')
 
 login_manager = LoginManager()
+
+login_manager.login_message = "Авторизуйтесь для доступа к админ панели"
+
 login_manager.init_app(app)
 login_manager.login_view = 'login.login'
 

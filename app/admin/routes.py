@@ -3,50 +3,16 @@ from flask_admin import AdminIndexView, expose, BaseView
 from flask_login import login_required
 from werkzeug.utils import secure_filename
 from flask import render_template, redirect, url_for
-from collections import OrderedDict
+
 
 from app.auth.models import User
 from .forms import SectionForm, ProjectForm
 from .models import Section, Project
 from ..config import db
-
-
-class ImageCache:
-    # def __init__(self, _image_cache=None, _cache_limit=100):
-    #     self._image_cache = OrderedDict()
-    #     self._cache_limit = _cache_limit
-    _image_cache = OrderedDict()
-    _cache_limit = 100
-    @staticmethod
-    def allowed_file(filename):
-        allowed_extensions = {'png', 'jpg', 'jpeg', 'gif'}
-        return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_extensions
-
-    @staticmethod
-    def get_image(filename):
-        if not filename:
-            # return url_for('static', filename=os.path.join('uploads', filename))
-            return None
-
-        if filename in ImageCache._image_cache:
-            ImageCache._image_cache.move_to_end(filename)
-            # print(f'Проверка кэша: {self._image_cache}')
-        else:
-            if len(ImageCache._image_cache) > ImageCache._cache_limit:
-                ImageCache._image_cache.popitem(last=False)
-
-            # Добавление нового элемента в кэш
-            ImageCache._image_cache[filename] = url_for('static', filename=f'uploads/{filename}')
-        # print(f'Кэш: {self._image_cache[filename]}')
-        return ImageCache._image_cache[filename]
-
-
-    def clear_cache(self):
-        self._image_cache.clear()
+from .utils import Breadcrumb, ImageCache
 
 
 class MainAdminPage(AdminIndexView):
-
     @expose('/')
     @login_required
     def index(self):
@@ -67,11 +33,6 @@ class MainAdminPage(AdminIndexView):
     def add_section(self):
         from main import app
 
-        breadcrumbs = [
-            {'name': 'Главная', 'url': url_for('admin.index')},
-            {'name': 'Добавить раздел', 'url': url_for('admin.add_section')}
-        ]
-
         add_section = SectionForm()
 
         if add_section.validate_on_submit():
@@ -80,7 +41,7 @@ class MainAdminPage(AdminIndexView):
             sort_in_list = add_section.sort_in_list.data
             cover_proj = add_section.cover_proj.data
 
-            if cover_proj and self.allowed_file(cover_proj.filename):
+            if cover_proj and ImageCache.allowed_file(cover_proj.filename):
                 filename = secure_filename(cover_proj.filename)
                 file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 cover_proj.save(file_path)
@@ -97,7 +58,7 @@ class MainAdminPage(AdminIndexView):
 
             return redirect(url_for('admin.index'))
 
-        return render_template('admin/add_section.html', add_section=add_section, breadcrumbs=breadcrumbs)
+        return render_template('admin/add_section.html', add_section=add_section)
 
     @expose('/edit/<int:section_id>', methods=('GET', 'POST'))
     @login_required
@@ -145,24 +106,28 @@ class ProjectView(BaseView):
     @expose('/<slug>')
     @login_required
     def projects(self, slug):
+
         current_user = User.query.first()
+
 
         section = Section.query.filter_by(slug=slug).first_or_404()
         projects = Project.query.filter_by(section_id=section.id).all()
 
+        breadcrumbs = Breadcrumb.generate_breadcrumbs(section.id)
+
         nums_projects = Project.query.count()
 
         section.image_url = ImageCache.get_image(section.cover_proj)
-
         for project in projects:
             project.image_url = ImageCache.get_image(project.cover_proj)
 
-        return self.render('admin/section_projects.html', user=current_user, section=section, projects=projects, num_projects=nums_projects)
+        return self.render('admin/section_projects.html', user=current_user, breadcrumbs=breadcrumbs, section=section, projects=projects, num_projects=nums_projects)
 
     @expose('/add/', methods=('GET', 'POST'))
     @login_required
     def add_project(self):
         from main import app
+
         breadcrumbs = [
             {'name': 'Главная', 'url': url_for('admin.index')},
             {'name': 'Добавить проект', 'url': url_for('projects.add_project')}

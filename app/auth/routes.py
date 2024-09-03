@@ -16,27 +16,23 @@ def register():
     reg_form = RegistrationForm()
 
     if reg_form.validate_on_submit():
-        try:
-            username = reg_form.username.data
-            password = reg_form.password.data
+        username = reg_form.username.data
+        password = reg_form.password.data
 
-            user = User.query.filter_by(username=reg_form.username.data).first()
+        user = User.query.filter_by(username=reg_form.username.data).first()
+        if user is None:
+            hashed_pw = generate_password_hash(password)
+            user = User(
+                username=username,
+                hash_password=hashed_pw,
+            )
+            db.session.add(user)
+            db.session.commit()
+            flash('Вы успешно зарегистрированы!', 'success')
+            return redirect(url_for('admin.index'))
+        else:
+            flash('Пользователь с таким логином уже существует!', 'danger')
 
-            if user is None:
-                hashed_pw = generate_password_hash(password)
-                user = User(
-                    username=username,
-                    hash_password=hashed_pw,
-                )
-                db.session.add(user)
-                db.session.commit()
-                flash('Вы успешно зарегистрированы!', 'success')
-                return redirect(url_for('admin.index'))
-            else:
-                flash('Пользователь с таким логином уже существует!', 'danger')
-
-        except Exception as e:
-            flash(f'Ошибка: {str(e)}', 'danger')
     return render_template('auth/register.html', reg_form=reg_form)
 
 
@@ -48,22 +44,19 @@ def login():
     login_form = LoginForm()
 
     if login_form.validate_on_submit():
-        try:
-            user = User.query.filter_by(username=login_form.username.data).first()
-            if user and user.verify_password(login_form.password.data):
-                remember_me = True if login_form.remember_me.data else False
-                login_user(user, remember=remember_me)
+        user = User.query.filter_by(username=login_form.username.data).first()
 
-                # if remember_me:
-                #     session.permanent = True
-                # else:
-                #     session.permanent = False
+        if user and user.verify_password(login_form.password.data):
+            remember_me = True if login_form.remember_me.data else False
+            login_user(user, remember=remember_me)
+            # if remember_me:
+            #     session.permanent = True
+            # else:
+            #     session.permanent = False
+            return redirect(url_for('admin.index'))
+        else:
+            flash("Неверное или пользователя или пароль!", "danger")
 
-                return redirect(url_for('admin.index'))
-            else:
-                flash("Неверное или пользователя или пароль!", "danger")
-        except Exception as e:
-            flash(str(e), "danger")
     return render_template('auth/login.html', login_form=login_form)
 
 

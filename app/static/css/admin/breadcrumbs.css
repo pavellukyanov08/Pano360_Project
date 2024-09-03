@@ -1,23 +1,30 @@
 /* Breadcrumbs */
-nav {
-    display: flex;
-}
 .breadcrumb {
     list-style: none;
     display: flex;
-    column-gap: 10px;
-    max-width: max-content;
-    padding: 13px;
-    background-color: #ffffff;
-    border-right: 3px solid #019ef4;
+    align-items: center;
 }
 
-.breadcrumb-item a {
-    color: #000000;
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-separator {
+    margin: 0 8px; /* Отступы для слэша */
+}
+
+
+.item-link {
+    color: #5b7080;
     text-decoration: none;
 }
 
-.breadcrumb a:hover {
-    text-decoration: underline;
-    cursor: pointer;
+.item-link:hover {
+    color: #555;
+}
+
+.item-active {
+    color: #0e2739; /* Цвет для активной страницы (можно изменить) */
+    font-weight: bold; /* Жирный текст для активной страницы */
 }

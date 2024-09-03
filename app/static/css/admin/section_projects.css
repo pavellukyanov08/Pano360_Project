@@ -53,6 +53,7 @@ h1 {
 .open-sec-lib a {
     color: #0E2739;
     font-weight: 500;
+    font-size: 16px;
 }
 
 .projects-type__header {
@@ -74,6 +75,7 @@ h1 {
     border-radius: 3px;
     padding: 5px;
     width: 50%;
+    font-size: 16px;
 }
 
 .section-projects {

@@ -54,13 +54,24 @@ section {
 }
 
 header {
+    padding: 10px 20px;
     border-bottom: 1px solid #e3e8ed;
     text-align: right;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .user-block {
-    margin-right: 30px;
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
     padding: 10px 0;
+}
+
+#user-info {
+    display: flex;
+    flex-direction: column;
 }
 
 #user-name {

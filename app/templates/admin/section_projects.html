@@ -4,21 +4,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/section_projects.css') }}">
 {% endblock %}
 
-{#{% block breadcrumbs %}#}
-{#        <nav aria-label="breadcrumb">#}
-{#        <ul class="breadcrumb">#}
-{#            {% for crumb in breadcrumbs %}#}
-{#                <li class="breadcrumb-item {% if loop.last %}active{% endif %}">#}
-{#                    {% if not loop.last %}#}
-{#                        <a href="{{ crumb.url }}">{{ crumb.name }}</a>#}
-{#                    {% else %}#}
-{#                        {{ crumb.name }}#}
-{#                    {% endif %}#}
-{#                </li>#}
-{#            {% endfor %}#}
-{#        </ul>#}
-{#    </nav>#}
-{#{% endblock %}#}
+{% block header %}
+    {% include 'admin/breadcrumbs.html' %}
+{% endblock %}
 
 {% block content %}
     <div class="panorama-info">
