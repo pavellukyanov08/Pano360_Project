@@ -84,8 +84,8 @@ class MainAdminPage(AdminIndexView):
         if section.cover_proj:
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], section.cover_proj)
 
-            if section.cover_proj in self._image_cache:
-                del self._image_cache[section.cover_proj]
+            if section.cover_proj in ImageCache._image_cache:
+                del ImageCache._image_cache[section.cover_proj]
 
             if os.path.exists(file_path):
                 os.remove(file_path)

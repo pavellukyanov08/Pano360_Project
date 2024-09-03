@@ -1,0 +1,38 @@
+name: pano360_project
+
+services:
+  web:
+    build: .
+    container_name: flask_app
+    command: flask run --host=0.0.0.0
+    volumes:
+      - .:/Pano360_Project
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+    networks:
+      - flask_network
+
+  db:
+    image: postgres:16
+    container_name: flask_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5441:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    networks:
+      - flask_network
+
+networks:
+  flask_network:
+      driver: bridge
+
+volumes:
+  postgres_data:
