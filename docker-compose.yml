@@ -1,4 +1,4 @@
-name: pano360_project
+container_name: pano360_project
 
 services:
   web:
