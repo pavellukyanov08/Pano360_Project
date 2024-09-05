@@ -11,7 +11,7 @@ from flask_migrate import Migrate
 from app.config import Database, db
 from app.admin.routes import MainAdminPage
 from app.auth.models import User
-from app.admin.models import Project
+from app.admin.models import Project, Panorama
 
 from app.auth.routes import (
     log_user_page,
@@ -19,7 +19,7 @@ from app.auth.routes import (
     logout_user_page
 )
 
-from app.admin.routes import ProjectView
+from app.admin.routes import ProjectView, PanoramaView
 from app.main_page.routes import MainPage
 
 
@@ -52,6 +52,7 @@ def load_user(user_id):
 
 admin = Admin(app, name='Pano360 | Admin panel', index_view=MainAdminPage(), template_mode='bootstrap4')
 admin.add_view(ProjectView(Project, db.session, endpoint='projects'))
+admin.add_view(PanoramaView(Panorama, db.session, endpoint='panoramas'))
 
 
 # Main page

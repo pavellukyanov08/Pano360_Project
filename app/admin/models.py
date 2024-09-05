@@ -39,6 +39,8 @@ class Project(db.Model):
 
     section_id = db.Column(db.Integer, db.ForeignKey('sections.id', name='fk_section_project'))
 
+    panorama = relationship('Panorama', backref='projects')
+
     registered_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __init__(self, *args, **kwargs):
@@ -48,5 +50,20 @@ class Project(db.Model):
 
     def __repr__(self):
         return f'<Project {self.title}>'
+
+class Panorama(db.Model):
+    __tablename__ = 'panorama'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80), unique=True, nullable=False)
+    sort_in_list = db.Column(db.Integer, nullable=True)
+    cover_proj = db.Column(db.String(256), nullable=False)
+
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id', name='fk_project_panorama'))
+
+    registered_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f'<Panorama {self.title}>'
 
 

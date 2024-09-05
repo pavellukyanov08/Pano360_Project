@@ -35,6 +35,17 @@ services:
     networks:
       - flask_network
 
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - './nginx.conf:/etc/nginx/nginx.conf'
+    depends_on:
+      - web
+    networks:
+      - flask_network
+
 networks:
   flask_network:
       driver: bridge

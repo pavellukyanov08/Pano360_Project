@@ -16,37 +16,21 @@
 
 {% block content %}
     <div class="project-info">
-        {% for proj in project %}
-            <h1>{{ proj.title }}</h1>
+        <h1 class="project-info__title">{{ project.title }}</h1>
 
-            <span>{{ proj.location }}</span>
-        {% endfor %}
+        <p class="project-info__location">{{ project.location }}</p>
 
-        <div class="projects-type">
+        <div class="material-type">
             <button>Панорамы</button>
             <button>Фото</button>
             <button>Видео</button>
             <button>Статьи</button>
         </div>
 
-        <div class="open-sec-lib">
-            <img src="{{ url_for('static', filename='admin/library-icon.svg') }}" alt="">
-            <a href="{{ url_for('projects.section_library') }}">Открыть библиотеку раздела</a>
-        </div>
 
-
-        <h3 class="projects-type__header">Тип проектов</h3>
-        <div class="projects-type">
-            <button>Лето</button>
-            <button>Зима</button>
-        </div>
-
-        <h4 class="section-projects">Проекты раздела</h4>
-
-
-        <div class="add-new-project-block">
+        <div class="add-new-panorama-block">
             <img src="{{ url_for('static', filename='admin/add-section-icon.svg') }}" alt="">
-            <a href="{{ url_for('projects.add_project') }}">Новый проект</a>
+            <a href="{{ url_for('panoramas.add_panorama', project_id=project.id) }}">Добавить панораму</a>
         </div>
     </div>
 
@@ -55,8 +39,12 @@
             <tr>
                 <th>Сортировка <img src="{{ url_for('static', filename='admin/sort-icon.svg') }}" alt=""> </th>
                 <th></th>
-                <th>Наименование проекта</th>
-                <th>Кол-во панорам</th>
+                <th>Наименование панорамы</th>
+                <th>Панорамы</th>
+                <th>Фото</th>
+                <th>Видео</th>
+                <th>Статьи</th>
+                <th>Метки</th>
                 <th></th>
             </tr>
         </thead>
@@ -76,7 +64,11 @@
 
                     <td><a href="{{ url_for('projects.projects', slug=project.slug) }}">{{ project.title }}</a></td>
 
-                    <td>{{ num_projects }}</td>
+                    <td>Панорамы</td>
+                    <td>Фото</td>
+                    <td>Видео</td>
+                    <td>Статьи</td>
+                    <td>Метки</td>
 
                     <td class="project_manage">
                         <div class="icon-container">

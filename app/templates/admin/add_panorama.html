@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/add_panorama.css') }}">
+{#    <link rel="stylesheet" href="{{ url_for('static', filename='js/section-preview.js') }}">#}
+    <title>Добавление панорамы </title>
+</head>
+<body>
+    <header class="login__pano360__logo">
+        <a href="{{ url_for('admin.index') }}"><img src="{{ url_for('static', filename='logo/pano360-logo.svg') }}" alt="Логотип"></a>
+    </header>
+
+    <section>
+        <h2>Создать новый проект</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {{ add_project.hidden_tag() }}
+
+            <p class="form-row">
+                {{ add_project.title.label(id="label_title") }}
+                {{ add_project.title(id="input_title") }}
+                {% for error in add_project.title.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </p>
+
+            <p class="form-row">
+                {{ add_project.sort_in_list.label(id="label_sort-in-list") }}
+                {{ add_project.sort_in_list(id="input_sort-in-list", placeholder="По умолчанию 500") }}
+                {% for error in add_project.sort_in_list.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </p>
+
+            <p class="form-row">
+                {{ add_project.location.label(id="label_location") }}
+                {{ add_project.location(id="input_location") }}
+                {% for error in add_project.location.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </p>
+
+            <p class="form-row">
+                {{ add_project.cover_proj.label(id="label_cover-proj") }}
+                {{ add_project.cover_proj(id="input_cover-proj", class="file-input") }}
+{#                <label for="input_cover-proj" id="custom-label" class="custom-file-upload">#}
+{#                    <span>Загрузите обложку</span>#}
+{#                    <img src="{{ url_for('static', filename='admin/upload-cover-icon.svg') }}" alt="">#}
+{#                </label>#}
+
+{#                <span id="file-preview" class="file-preview">#}
+{#                    <img id="preview-img" src="" alt="Preview" style="display: none;">#}
+{#                    <span id="file-name"></span>#}
+{#                </span>#}
+
+                {% for error in add_project.cover_proj.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </p>
+
+            <div class="submit-row">
+                <button class="submit" type="submit" value="Войти">Создать проект</button>
+            </div>
+        </form>
+    </section>
+</body>
+</html>
