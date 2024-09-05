@@ -1,7 +1,13 @@
-{% extends 'admin/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>{% extends 'admin/base.html' %}
 
 {% block css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/section_projects.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/view_project.css') }}">
 {% endblock %}
 
 {% block header %}
@@ -9,10 +15,19 @@
 {% endblock %}
 
 {% block content %}
-    <div class="panorama-info">
-        <img id="section-image" src="{{ section.image_url }}" alt="{{ section.title }}">
-        <h1 id="section-title">{{ section.title }}</h1>
-        <p id="section-desc">{{ section.description }}</p>
+    <div class="project-info">
+        {% for proj in project %}
+            <h1>{{ proj.title }}</h1>
+
+            <span>{{ proj.location }}</span>
+        {% endfor %}
+
+        <div class="projects-type">
+            <button>Панорамы</button>
+            <button>Фото</button>
+            <button>Видео</button>
+            <button>Статьи</button>
+        </div>
 
         <div class="open-sec-lib">
             <img src="{{ url_for('static', filename='admin/library-icon.svg') }}" alt="">
@@ -84,3 +99,6 @@
     </table>
 
 {% endblock %}
+
+</body>
+</html>

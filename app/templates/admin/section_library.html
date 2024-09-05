@@ -1,0 +1,28 @@
+{% extends 'admin/base.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/section_library.css') }}">
+{% endblock %}
+
+{% block header %}
+    {% include 'admin/breadcrumbs.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="section-library">
+        <h2 class="section-library__header">Библиотека разделов</h2>
+
+        <div class="projects-type">
+            <button class="projects-type__item">Фото</button>
+            <button class="projects-type__item">Видео</button>
+            <button class="projects-type__item">Статьи</button>
+        </div>
+
+        <div class="add-new-material-block">
+            <img src="{{ url_for('static', filename='admin/add-section-icon.svg') }}" alt="">
+            <a href="{{ url_for('projects.add_project') }}">Добавить материал</a>
+        </div>
+    </div>
+
+
+{% endblock %}

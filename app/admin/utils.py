@@ -12,7 +12,8 @@ class Breadcrumb:
 
         breadcrumbs = [
             {'name': 'Раздел панорам', 'url': url_for('admin.index')},
-            {'name': section.title, 'url': url_for('projects.projects', slug=section.slug)}
+            {'name': section.title, 'url': url_for('projects.projects', slug=section.slug)},
+            # {'name': 'Библиотека раздела', 'url': url_for('projects.section_library', slug=section.slug)}
         ]
 
         return breadcrumbs

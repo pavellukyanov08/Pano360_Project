@@ -106,12 +106,14 @@ class ProjectView(BaseView):
     @expose('/<slug>')
     @login_required
     def projects(self, slug):
-
         current_user = User.query.first()
 
-
         section = Section.query.filter_by(slug=slug).first_or_404()
+
+        project = Project.query.filter_by(slug=slug).first_or_404()
+
         projects = Project.query.filter_by(section_id=section.id).all()
+        print(projects)
 
         breadcrumbs = Breadcrumb.generate_breadcrumbs(section.id)
 
@@ -121,27 +123,41 @@ class ProjectView(BaseView):
         for project in projects:
             project.image_url = ImageCache.get_image(project.cover_proj)
 
-        return self.render('admin/section_projects.html', user=current_user, breadcrumbs=breadcrumbs, section=section, projects=projects, num_projects=nums_projects)
+        return self.render('admin/section_projects.html', user=current_user, breadcrumbs=breadcrumbs, section=section, project=project, projects=projects, num_projects=nums_projects)
+
+    @expose('/<slug>/<int:project_id>')
+    @login_required
+    def view_project(self, slug, project_id):
+        current_user = User.query.first()
+        project = Project.query.get_or_404(project_id)
+
+        return self.render('admin/view_project.html', user=current_user, project=project)
+
+
+    @expose('/section_library/', methods=('GET', 'POST'))
+    @login_required
+    def section_library(self):
+        current_user = User.query.first()
+        # breadcrumbs = Breadcrumb.generate_breadcrumbs(current_user.id)
+
+        return self.render('admin/section_library.html', user=current_user)
 
     @expose('/add/', methods=('GET', 'POST'))
     @login_required
     def add_project(self):
         from main import app
 
-        breadcrumbs = [
-            {'name': 'Главная', 'url': url_for('admin.index')},
-            {'name': 'Добавить проект', 'url': url_for('projects.add_project')}
-        ]
-
         add_project = ProjectForm()
 
         if add_project.validate_on_submit():
+
+            # section_id =
             title = add_project.title.data
             location = add_project.location.data
             sort_in_list = add_project.sort_in_list.data
             cover_proj = add_project.cover_proj.data
 
-            if cover_proj and self.allowed_file(cover_proj.filename):
+            if cover_proj and ImageCache.allowed_file(cover_proj.filename):
                 filename = secure_filename(cover_proj.filename)
                 file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 cover_proj.save(file_path)
@@ -156,9 +172,9 @@ class ProjectView(BaseView):
                 db.session.add(new_project)
                 db.session.commit()
 
-            return redirect(url_for('admin.index'))
+            return redirect(url_for('projects.projects'))
 
-        return render_template('admin/add_project.html', add_project=add_project, breadcrumbs=breadcrumbs)
+        return render_template('admin/add_project.html', add_project=add_project)
     #
     # @expose('/edit/<int:idx>', methods=('GET', 'POST'))
     # @login_required
