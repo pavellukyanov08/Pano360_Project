@@ -2,12 +2,11 @@ import os
 from flask_admin import AdminIndexView, expose, BaseView
 from flask_login import login_required
 from werkzeug.utils import secure_filename
-from flask import render_template, redirect, url_for
-
+from flask import render_template, redirect, url_for, request
 
 from app.auth.models import User
 from .forms import SectionForm, ProjectForm, PanoramaForm
-from .models import Section, Project, Panorama
+from .models import Section, Project, Panorama, Season
 from ..config import db
 from .utils import Breadcrumb, ImageCache
 
@@ -18,14 +17,14 @@ class MainAdminPage(AdminIndexView):
     def index(self):
         current_user = User.query.first()
         sections = Section.query.all()
+        seasons = Season.query.all()
 
         nums_projects = Section.query.count()
-
 
         for section in sections:
             section.image_url = ImageCache.get_image(section.cover_proj)
 
-        return self.render('admin/index.html', user=current_user, sections=sections, num_projects=nums_projects)
+        return self.render('admin/index.html', user=current_user, sections=sections, season=seasons, num_projects=nums_projects)
 
 
     @expose('/add/', methods=('GET', 'POST'))
@@ -108,28 +107,78 @@ class ProjectView(BaseView):
     def index(self):
         return redirect(url_for('.projects'))
 
-    @expose('/<slug>')
+    @expose('/<string:slug>')
     @login_required
     def projects(self, slug):
         current_user = User.query.first()
 
         section = Section.query.filter_by(slug=slug).first_or_404()
 
-        projects = Project.query.filter_by(section_id=section.id).all()
+        # breadcrumbs = Breadcrumb.generate_breadcrumbs(section.id)
 
-        breadcrumbs = Breadcrumb.generate_breadcrumbs(section.id)
+        season_name = request.args.get('season', 'Лето')
 
-        nums_projects = Project.query.count()
+        active_season = Season.query.filter_by(name=season_name).first_or_404()
+
+        projects = Project.query.filter_by(section_id=section.id, season_id=active_season.id).all()
+
+        nums_projects = Project.query.filter_by(section_id=section.id, season_id=active_season.id).count()
 
         section.image_url = ImageCache.get_image(section.cover_proj)
+
         for project in projects:
             project.image_url = ImageCache.get_image(project.cover_proj)
 
+        seasons = Season.query.all()
+
         return self.render('admin/section_projects.html', user=current_user,
-                           breadcrumbs=breadcrumbs,
+                           # breadcrumbs=breadcrumbs,
                            section=section,
                            projects=projects,
+                           seasons=seasons,
+                           active_season=active_season.name,
                            num_projects=nums_projects)
+
+    @expose('/add/<int:section_id>', methods=('GET', 'POST'))
+    @login_required
+    def add_project(self, section_id):
+        from main import app
+
+        add_project = ProjectForm()
+
+        section = Section.query.get(section_id)
+
+        season_type = Season.query.all()
+        add_project.season_type.choices = [(season.id, season.name) for season in season_type]
+
+        if add_project.validate_on_submit():
+            cover_proj = add_project.cover_proj.data
+
+            if cover_proj and ImageCache.allowed_file(cover_proj.filename):
+                filename = secure_filename(cover_proj.filename)
+                file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                cover_proj.save(file_path)
+
+                new_project = Project(
+                    title=add_project.title.data,
+                    location=add_project.location.data,
+                    sort_in_list=add_project.sort_in_list.data,
+                    cover_proj=filename,
+                    section_id=section.id,
+                    season_id=add_project.season_type.data
+                )
+
+                db.session.add(new_project)
+
+                # if section:
+                #     section.prpoject_count += 1
+                #     db.session.add(section)
+
+                db.session.commit()
+            return redirect(url_for('projects.projects', slug=section.slug))
+
+        return render_template('admin/add_project.html', add_project=add_project)
+
 
     @expose('/view/<int:project_id>')
     @login_required
@@ -148,49 +197,12 @@ class ProjectView(BaseView):
 
         return self.render('admin/section_library.html', user=current_user)
 
-    @expose('/add/<int:section_id>/', methods=('GET', 'POST'))
+    @expose('/display/<int:project_id>', methods=('GET', 'POST'))
     @login_required
-    def add_project(self, section_id):
-        from main import app
+    def display_project(self, project_id):
+        pass
 
-        add_project = ProjectForm()
-        section = Section.query.get(section_id)
-
-        if add_project.validate_on_submit():
-
-            # section_id =
-            title = add_project.title.data
-            location = add_project.location.data
-            sort_in_list = add_project.sort_in_list.data
-            cover_proj = add_project.cover_proj.data
-
-            # section_id = add_project.section_id.data
-
-            if cover_proj and ImageCache.allowed_file(cover_proj.filename):
-                filename = secure_filename(cover_proj.filename)
-                file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                cover_proj.save(file_path)
-
-                new_project = Project(
-                    title=title,
-                    location=location,
-                    sort_in_list=sort_in_list,
-                    cover_proj=filename,
-                    section_id=section_id
-                )
-
-                db.session.add(new_project)
-
-                # if section:
-                #     section.prpoject_count += 1
-                #     db.session.add(section)
-
-                db.session.commit()
-            return redirect(url_for('projects.projects', slug=section.slug))
-
-        return render_template('admin/add_project.html', add_project=add_project)
-
-    @expose('/edit/<int:project_id>', methods=('GET', 'POST'))
+    @expose('/share/<int:project_id>', methods=('GET', 'POST'))
     @login_required
     def share_project(self, project_id):
         pass
@@ -215,21 +227,22 @@ class ProjectView(BaseView):
     @login_required
     def delete_project(self, project_id):
         from main import app
-        section = Section.query.get_or_404(project_id)
 
-        if section.cover_proj:
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], section.cover_proj)
+        project = Project.query.get_or_404(project_id)
 
-            if section.cover_proj in self._image_cache:
-                del self._image_cache[section.cover_proj]
+        if project.cover_proj:
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], project.cover_proj)
+
+            if project.cover_proj in ImageCache._image_cache:
+                del ImageCache._image_cache[project.cover_proj]
 
             if os.path.exists(file_path):
                 os.remove(file_path)
 
-        db.session.delete(section)
+
+        db.session.delete(project)
         db.session.commit()
-        # flash('Doctor deleted successfully!')
-        return redirect(url_for('admin.index'))
+        return redirect(url_for('projects.projects', slug=project.slug))
 
 
 class PanoramaView(BaseView):
@@ -238,7 +251,7 @@ class PanoramaView(BaseView):
     def index(self):
         return redirect(url_for('.panoramas'))
 
-    @expose('/add/<int:project_id>/', methods=('GET', 'POST'))
+    @expose('/add/<int:project_id>', methods=('GET', 'POST'))
     @login_required
     def add_panorama(self, project_id):
         from main import app

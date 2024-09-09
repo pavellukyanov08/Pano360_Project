@@ -38,6 +38,7 @@ class Project(db.Model):
     slug = db.Column(db.String(256), unique=True, nullable=True)
 
     section_id = db.Column(db.Integer, db.ForeignKey('sections.id', name='fk_section_project'))
+    season_id = db.Column(db.Integer, db.ForeignKey('seasons.id', name='fk_project_season'))
 
     panorama = relationship('Panorama', backref='projects')
 
@@ -65,5 +66,16 @@ class Panorama(db.Model):
 
     def __repr__(self):
         return f'<Panorama {self.title}>'
+
+
+class Season(db.Model):
+    __tablename__ = 'seasons'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=True)
+
+    project = relationship('Project', backref='seasons')
+
+
 
 

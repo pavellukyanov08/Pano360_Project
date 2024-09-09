@@ -21,7 +21,7 @@ class ProjectForm(FlaskForm):
         FileRequired(),
         FileAllowed(['jpg', 'jpeg', 'png', 'gif'], 'Только изображения!')
     ])  # Поле для загрузки изображения
-    # section_id = SelectField('Раздел', coerce=int, validators=[DataRequired()])
+    season_type = SelectField('Выберите тип проекта', coerce=int, validators=[DataRequired()])
 
 class PanoramaForm(FlaskForm):
     title = StringField('Наименование панорамы', validators=[DataRequired()])

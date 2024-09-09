@@ -9,83 +9,87 @@
 {% endblock %}
 
 {% block content %}
-    <div class="panorama-info">
+    <div class="section-info">
         <img id="section-image" src="{{ section.image_url }}" alt="{{ section.title }}">
         <h1 id="section-title">{{ section.title }}</h1>
         <p id="section-desc">{{ section.description }}</p>
+    </div>
 
-        <div class="open-sec-lib">
-            <img src="{{ url_for('static', filename='admin/library-icon.svg') }}" alt="">
-            <a href="{{ url_for('projects.section_library') }}">Открыть библиотеку раздела</a>
-        </div>
-
-
-        <h3 class="projects-type__header">Тип проектов</h3>
-        <div class="projects-type">
-            <button>Лето</button>
-            <button>Зима</button>
-        </div>
-
-        <h4 class="section-projects">Проекты раздела</h4>
+    <div class="open-sec-lib">
+        <img src="{{ url_for('static', filename='admin/library-icon.svg') }}" alt="">
+        <a href="{{ url_for('projects.section_library') }}">Открыть библиотеку раздела</a>
+    </div>
 
 
-        <div class="add-new-project-block">
+    <h3 class="projects-type__header">Тип проектов</h3>
+    <div class="projects-type">
+        {% for season in seasons %}
+            <a href="{{ url_for('projects.projects', slug=section.slug, season=season.name) }}"
+               class="{% if active_season == season.name %}active{% endif %}">
+                {{ season.name }}
+            </a>
+        {% endfor %}
+    </div>
+
+
+    <h4 class="section-projects">Проекты раздела</h4>
+
+    <div class="add-new-project-block">
+        <a href="{{ url_for('projects.add_project', section_id=section.id) }}">
             <img src="{{ url_for('static', filename='admin/add-section-icon.svg') }}" alt="">
-            <a href="{{ url_for('projects.add_project', section_id=section.id) }}">Новый проект</a>
-
-        </div>
+            Новый проект
+        </a>
     </div>
 
     <table>
         <thead>
             <tr>
-                <th>Сортировка <img src="{{ url_for('static', filename='admin/sort-icon.svg') }}" alt=""> </th>
+                <th>Сортировка <img src="{{ url_for('static', filename='admin/sort-icon.svg') }}" alt=""></th>
                 <th></th>
                 <th>Наименование проекта</th>
-                <th>Кол-во панорам</th>
+                <th>Кол-во проектов</th>
                 <th></th>
             </tr>
         </thead>
 
         <tbody>
             {% for project in projects %}
-                <tr>
-                    <td>{{ project.sort_in_list }}</td>
+            <tr>
+                <td>{{ project.sort_in_list }}</td>
 
-                    <td>
-                        {% if project.image_url %}
-                            <img src="{{ project.image_url }}" alt="{{ project.title }}">
-                        {% else %}
-                            Отсутствует
-                        {% endif %}
-                    </td>
+                <td>
+                    {% if project.image_url %}
+                        <img id="project-img" src="{{ project.image_url }}" alt="{{ project.title }}">
+                    {% else %}
+                        Отсутствует
+                    {% endif %}
+                </td>
 
-                    <td>
-                        <a href="{{ url_for('projects.view_project', project_id=project.id) }}">
-                            {{ project.title }}
-                        </a>
-                    </td>
+                <td>
+                    <a href="{{ url_for('projects.view_project', slug=section.slug, project_id=project.id) }}">
+                        {{ project.title }}
+                    </a>
+                </td>
 
-                    <td>{{ num_projects }}</td>
+                <td>{{ num_projects }}</td>
 
-                    <td class="project_manage">
-                        <div class="icon-container">
-                            <a href=""><img src="{{ url_for('static', filename='admin/manage_panoramas_icon/display-icon.svg') }}" alt=""></a>
+                <td id="project_manage">
+                    <div class="icon-container">
+                        <a href=""><img src="{{ url_for('static', filename='admin/manage_panoramas_icon/display-icon.svg') }}" alt=""></a>
 
-                            <form action="{{ url_for('projects.share_project', project_id=project.id) }}" method="post" onsubmit="return confirm('Вы уверены, что хотите поделиться разделом?');">
-                                <img src="{{ url_for('static', filename='admin/manage_panoramas_icon/share-icon.svg') }}" alt="">
-                            </form>
+                        <form action="{{ url_for('projects.share_project', project_id=project.id) }}" method="post" onsubmit="return confirm('Вы уверены, что хотите поделиться разделом?');">
+                            <img src="{{ url_for('static', filename='admin/manage_panoramas_icon/share-icon.svg') }}" alt="">
+                        </form>
 
-                            <a href="{{ url_for('projects.edit_project', project_id=project.id) }}" ><img src="{{ url_for('static', filename='admin/manage_panoramas_icon/edit-icon.svg') }}" alt=""></a>
+                        <a href="{{ url_for('projects.edit_project', project_id=project.id) }}" ><img src="{{ url_for('static', filename='admin/manage_panoramas_icon/edit-icon.svg') }}" alt=""></a>
 
-                            <form action="{{ url_for('projects.delete_project', project_id=project.id) }}" method="post" id="delete-section" onsubmit="return confirm('Вы уверены, что хотите удалить проектом?');">
-                                <input type="image" src="{{ url_for('static', filename='admin/manage_panoramas_icon/delete-icon.svg') }}" alt="Удалить">
-                            </form>
-                        </div>
-                    </td>
-                </tr>
+                        <form action="{{ url_for('projects.delete_project', project_id=project.id) }}" method="post" id="delete-section" onsubmit="return confirm('Вы уверены, что хотите удалить раздел?');">
+                            <input type="image" src="{{ url_for('static', filename='admin/manage_panoramas_icon/delete-icon.svg') }}" alt="Удалить">
+                        </form>
+                    </div>
+                </td>
+            </tr>
             {% endfor %}
         </tbody>
     </table>
-
 {% endblock %}

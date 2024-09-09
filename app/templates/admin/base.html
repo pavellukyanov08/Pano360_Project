@@ -22,7 +22,7 @@
         </ul>
     </aside>
 
-    <section>
+    <main>
         <header>
             {% block header %}
                 {% include 'admin/breadcrumbs.html' %}
@@ -41,8 +41,9 @@
             </div>
         </header>
 
-        {% block content %}
-
-        {% endblock %}
-    </section>
+        <section>
+            {% block content %}
+            {% endblock %}
+        </section>
+    </main>
 </body>

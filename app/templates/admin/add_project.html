@@ -59,6 +59,14 @@
                 {% endfor %}
             </p>
 
+            <p class="form-row">
+                {{ add_project.season_type.label(id="label_season-type") }}
+                {{ add_project.season_type(id="input_season-type") }}
+                {% for error in add_project.location.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </p>
+
             <div class="submit-row">
                 <button class="submit" type="submit" value="Войти">Создать проект</button>
             </div>

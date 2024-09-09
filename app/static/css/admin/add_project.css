@@ -78,7 +78,8 @@ form {
 #label_title,
 #label_sort-in-list,
 #label_location,
-#label_cover-proj {
+#label_cover-proj,
+#label_season-type {
     font-size: 17px;
     font-weight: 600;
     padding-bottom: 7px;
@@ -89,6 +90,13 @@ form {
 #input_location,
 #input_cover-proj {
     padding: 10px;
+    font-size: 17px;
+    border-radius: 10px;
+    border: 2px solid lightgrey;
+}
+
+#input_season-type {
+    padding: 5px;
     font-size: 17px;
     border-radius: 10px;
     border: 2px solid lightgrey;

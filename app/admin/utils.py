@@ -2,19 +2,33 @@ from collections import OrderedDict
 
 from flask import url_for
 
-from app.admin.models import Section
+from app.admin.models import Section, Season, Panorama, Project
 
 
 class Breadcrumb:
     @staticmethod
-    def generate_breadcrumbs(section_id):
-        section = Section.query.get(section_id)
-
+    def generate_breadcrumbs(section_id=None, project_id=None):
+        # Начальные хлебные крошки с главной страницей
         breadcrumbs = [
-            {'name': 'Раздел панорам', 'url': url_for('admin.index')},
-            {'name': section.title, 'url': url_for('projects.projects', slug=section.slug)},
-            # {'name': 'Библиотека раздела', 'url': url_for('projects.section_library', slug=section.slug)}
+            {'name': 'Главная', 'url': url_for('admin.index')},  # Главная страница админ-панели
         ]
+
+        # Если передан section_id, добавляем информацию о разделе
+        if section_id:
+            section = Section.query.get(section_id)
+            breadcrumbs.append(
+                {'name': 'Раздел панорам', 'url': url_for('admin.index')}  # Это можно изменить для конкретной страницы разделов
+            )
+            breadcrumbs.append(
+                {'name': section.title, 'url': url_for('projects.projects', slug=section.slug, season='Лето', project=project)}
+            )
+
+        # Если передан project_id, добавляем информацию о проекте
+        if project_id:
+            project = Project.query.get(project_id)
+            breadcrumbs.append(
+                {'name': project.title, 'url': url_for('projects.project_detail', project_id=project.id)}
+            )
 
         return breadcrumbs
 

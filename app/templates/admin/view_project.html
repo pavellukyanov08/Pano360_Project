@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>{% extends 'admin/base.html' %}
+{% extends 'admin/base.html' %}
 
 {% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/view_project.css') }}">
@@ -72,15 +66,15 @@
 
                     <td class="project_manage">
                         <div class="icon-container">
-                            <a href="{{ url_for('admin.edit_section', idx=section.id) }}"><img src="{{ url_for('static', filename='admin/manage_panoramas_icon/display-icon.svg') }}" alt=""></a>
+                            <a href="{{ url_for('projects.display_project', idx=section.id) }}"><img src="{{ url_for('static', filename='admin/manage_panoramas_icon/display-icon.svg') }}" alt=""></a>
 
-                            <form action="{{ url_for('admin.delete_section', idx=section.id) }}" method="post" onsubmit="return confirm('Вы уверены, что хотите удалить раздел?');">
+                            <form action="{{ url_for('projects.share_project', idx=section.id) }}" method="post" onsubmit="return confirm('Вы уверены, что хотите удалить раздел?');">
                                 <img src="{{ url_for('static', filename='admin/manage_panoramas_icon/share-icon.svg') }}" alt="">
                             </form>
 
-                            <a href="{{ url_for('admin.edit_section', idx=section.id) }}" ><img src="{{ url_for('static', filename='admin/manage_panoramas_icon/edit-icon.svg') }}" alt=""></a>
+                            <a href="{{ url_for('projects.edit_project', idx=section.id) }}" ><img src="{{ url_for('static', filename='admin/manage_panoramas_icon/edit-icon.svg') }}" alt=""></a>
 
-                            <form action="{{ url_for('admin.delete_section', idx=section.id) }}" method="post" id="delete-section" onsubmit="return confirm('Вы уверены, что хотите удалить раздел?');">
+                            <form action="{{ url_for('projects.delete_section', idx=section.id) }}" method="post" id="delete-section" onsubmit="return confirm('Вы уверены, что хотите удалить раздел?');">
                                 <input type="image" src="{{ url_for('static', filename='admin/manage_panoramas_icon/delete-icon.svg') }}" alt="Удалить">
                             </form>
                         </div>
@@ -89,8 +83,4 @@
             {% endfor %}
         </tbody>
     </table>
-
 {% endblock %}
-
-</body>
-</html>

@@ -34,14 +34,14 @@
 
                     <td>
                         {% if section.image_url %}
-                            <img src="{{ section.image_url }}" alt="{{ section.title }}">
+                            <img id="section-img" src="{{ section.image_url }}" alt="{{ section.title }}">
                         {% else %}
                             Отсутствует
                         {% endif %}
                     </td>
 
                     <td>
-                        <a href="{{ url_for('projects.projects', slug=section.slug) }}">
+                        <a href="{{ url_for('projects.projects', slug=section.slug, season='Лето') }}">
                             {{ section.title }}
                         </a>
                     </td>
