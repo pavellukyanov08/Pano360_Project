@@ -1,16 +1,35 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/breadcrumbs.css') }}">
 
+{#<ul class="breadcrumb">#}
+{#    {% for breadcrumb in breadcrumbs %}#}
+{#        <li class="breadcrumb-item">#}
+{#            {% if not loop.first %}#}
+{#                <span class="breadcrumb-separator">/</span> <!-- Слэш между элементами -->#}
+{#            {% endif %}#}
+{#            {% if loop.last %}#}
+{#                <span class="item_active" >{{ breadcrumb.name }}</span> <!-- Не добавляем ссылку для последнего элемента -->#}
+{#            {% else %}#}
+{#                <a href="{{ breadcrumb.url }}" class="item-link">{{ breadcrumb.name }}</a>#}
+{#            {% endif %}#}
+{#        </li>#}
+{#    {% endfor %}#}
+{#</ul>#}
+
 <ul class="breadcrumb">
-    {% for breadcrumb in breadcrumbs %}
-        <li class="breadcrumb-item">
-            {% if not loop.first %}
-                <span class="breadcrumb-separator">/</span> <!-- Слэш между элементами -->
-            {% endif %}
-            {% if loop.last %}
-                <span class="item_active" >{{ breadcrumb.name }}</span> <!-- Не добавляем ссылку для последнего элемента -->
-            {% else %}
-                <a href="{{ breadcrumb.url }}" class="item-link">{{ breadcrumb.name }}</a>
-            {% endif %}
-        </li>
-    {% endfor %}
+    <li class="breadcrumb-item"><a href="{{ url_for('admin.index') }}">Раздел панорам</a></li>
+    <span class="breadcrumb-separator">/</span>
+
+    {% if section %}
+    <li class="breadcrumb-item">
+        <a href="{{ url_for('projects.projects', section_id=section.id, slug=section.slug) }}">{{ section.title }}</a>
+    </li>
+    {% endif %}
+
+    {% if project %}
+    <li class="breadcrumb-item"><a href="{{ url_for('projects.projects', slug=project.slug) }}">{{ project.title }}</a></li>
+    {% endif %}
+
+    {% if panorama %}
+    <li class="breadcrumb-item"><a href="{{ url_for('projects.view_project', section_id=section.id) }}">{{ panorama.title }}</a></li>
+    {% endif %}
 </ul>
