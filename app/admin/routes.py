@@ -135,38 +135,6 @@ class ProjectView(BaseView):
                            active_season=active_season.name,
                            num_projects=nums_projects)
 
-    @expose('/<string:slug>')
-    @login_required
-    # def projects(self, slug):
-    #     current_user = User.query.first()
-    #
-    #     section = Section.query.filter_by(slug=slug).first_or_404()
-    #
-    #     # breadcrumbs = Breadcrumb.generate_breadcrumbs(section.id)
-    #
-    #     season_name = request.args.get('season', 'Лето')
-    #
-    #     active_season = Season.query.filter_by(name=season_name).first_or_404()
-    #
-    #     projects = Project.query.filter_by(section_id=section.id, season_id=active_season.id).all()
-    #
-    #     nums_projects = Project.query.filter_by(section_id=section.id, season_id=active_season.id).count()
-    #
-    #     section.image_url = ImageCache.get_image(section.cover_proj)
-    #
-    #     for project in projects:
-    #         project.image_url = ImageCache.get_image(project.cover_proj)
-    #
-    #     seasons = Season.query.all()
-    #
-    #     return self.render('admin/section_projects.html', user=current_user,
-    #                        # breadcrumbs=breadcrumbs,
-    #                        section=section,
-    #                        projects=projects,
-    #                        seasons=seasons,
-    #                        active_season=active_season.name,
-    #                        num_projects=nums_projects)
-
     @expose('/add/<int:section_id>', methods=('GET', 'POST'))
     @login_required
     def add_project(self, section_id):
@@ -272,6 +240,52 @@ class ProjectView(BaseView):
         db.session.commit()
         return redirect(url_for('projects.projects', slug=project.slug))
 
+    @expose('/library')
+    @login_required
+    def section_library(self):
+        # return redirect(url_for('.library'))
+        return render_template('admin/section_library.html')
+
+    @expose('/add/')
+    def add_material(self, ):
+        from main import app
+
+        add_material = SectionLibraryForm()
+        # project = Section.query.get(project_id)
+        #
+        # if add_panorama.validate_on_submit():
+        #     title = add_panorama.title.data
+        #     sort_in_list = add_panorama.sort_in_list.data
+        #     cover_proj = add_panorama.cover_proj.data
+        #
+        #     # section_id = add_project.section_id.data
+        #
+        #     if cover_proj and ImageCache.allowed_file(cover_proj.filename):
+        #         filename = secure_filename(cover_proj.filename)
+        #         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        #         cover_proj.save(file_path)
+        #
+        #         new_panorama = Panorama(
+        #             title=title,
+        #             sort_in_list=sort_in_list,
+        #             cover_proj=filename,
+        #             project_id=project_id
+        #         )
+        #
+        #         db.session.add(new_panorama)
+        #
+        #         # if section:
+        #         #     section.prpoject_count += 1
+        #         #     db.session.add(section)
+        #
+        #         db.session.commit()
+        #     return redirect(url_for('projects.projects', slug=project.slug))
+
+        return render_template('admin/add_material.html', add_material=add_material)
+
+# Section Library
+
+
 
 class PanoramaView(BaseView):
     @expose('/')
@@ -318,54 +332,9 @@ class PanoramaView(BaseView):
         return render_template('admin/add_panorama.html', add_panorama=add_panorama)
 
 
-class SectionLibraryView(BaseView):
-    @expose('/')
-    @expose('/library')
-    @login_required
-    def index(self):
-        # return redirect(url_for('.library'))
-        return render_template('admin/section_library.html')
-    # @expose('/library')
-    # @login_required
-    # def library(self):
-    #     return render_template('admin/section_library.html')
 
-    @expose('/add/')
-    def add_material(self,):
-        from main import app
 
-        add_material = SectionLibraryForm()
-        # project = Section.query.get(project_id)
-        #
-        # if add_panorama.validate_on_submit():
-        #     title = add_panorama.title.data
-        #     sort_in_list = add_panorama.sort_in_list.data
-        #     cover_proj = add_panorama.cover_proj.data
-        #
-        #     # section_id = add_project.section_id.data
-        #
-        #     if cover_proj and ImageCache.allowed_file(cover_proj.filename):
-        #         filename = secure_filename(cover_proj.filename)
-        #         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        #         cover_proj.save(file_path)
-        #
-        #         new_panorama = Panorama(
-        #             title=title,
-        #             sort_in_list=sort_in_list,
-        #             cover_proj=filename,
-        #             project_id=project_id
-        #         )
-        #
-        #         db.session.add(new_panorama)
-        #
-        #         # if section:
-        #         #     section.prpoject_count += 1
-        #         #     db.session.add(section)
-        #
-        #         db.session.commit()
-        #     return redirect(url_for('projects.projects', slug=project.slug))
 
-        return render_template('admin/add_material.html', add_material=add_material)
 
 
 

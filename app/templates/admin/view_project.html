@@ -44,43 +44,41 @@
         </thead>
 
         <tbody>
-            {% for project in projects %}
-                <tr>
-                    <td>{{ project.sort_in_list }}</td>
+            <tr>
+                <td>{{ project.sort_in_list }}</td>
 
-                    <td>
-                        {% if project.image_url %}
-                            <img src="{{ project.image_url }}" alt="{{ project.title }}">
-                        {% else %}
-                            Отсутствует
-                        {% endif %}
-                    </td>
+                <td>
+                    {% if project.image_url %}
+                        <img src="{{ project.image_url }}" alt="{{ project.title }}">
+                    {% else %}
+                        Отсутствует
+                    {% endif %}
+                </td>
 
-                    <td><a href="{{ url_for('projects.projects', slug=project.slug) }}">{{ project.title }}</a></td>
+                <td><a href="{{ url_for('projects.projects', slug=project.slug) }}">{{ project.title }}</a></td>
 
-                    <td>Панорамы</td>
-                    <td>Фото</td>
-                    <td>Видео</td>
-                    <td>Статьи</td>
-                    <td>Метки</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
 
-                    <td class="project_manage">
-                        <div class="icon-container">
-                            <a href="{{ url_for('projects.display_project', idx=section.id) }}"><img src="{{ url_for('static', filename='admin/manage_panoramas_icon/display-icon.svg') }}" alt=""></a>
+                <td class="project_manage">
+                    <div class="icon-container">
+                        <a href="{{ url_for('projects.display_project', project_id=project.id) }}"><img src="{{ url_for('static', filename='admin/manage_panoramas_icon/display-icon.svg') }}" alt=""></a>
 
-                            <form action="{{ url_for('projects.share_project', idx=section.id) }}" method="post" onsubmit="return confirm('Вы уверены, что хотите удалить раздел?');">
-                                <img src="{{ url_for('static', filename='admin/manage_panoramas_icon/share-icon.svg') }}" alt="">
-                            </form>
+                        <form action="{{ url_for('projects.share_project', project_id=project.id) }}" method="post" onsubmit="return confirm('Вы уверены, что хотите удалить раздел?');">
+                            <img src="{{ url_for('static', filename='admin/manage_panoramas_icon/share-icon.svg') }}" alt="">
+                        </form>
 
-                            <a href="{{ url_for('projects.edit_project', idx=section.id) }}" ><img src="{{ url_for('static', filename='admin/manage_panoramas_icon/edit-icon.svg') }}" alt=""></a>
+                        <a href="{{ url_for('projects.edit_project', project_id=project.id) }}" ><img src="{{ url_for('static', filename='admin/manage_panoramas_icon/edit-icon.svg') }}" alt=""></a>
 
-                            <form action="{{ url_for('projects.delete_section', idx=section.id) }}" method="post" id="delete-section" onsubmit="return confirm('Вы уверены, что хотите удалить раздел?');">
-                                <input type="image" src="{{ url_for('static', filename='admin/manage_panoramas_icon/delete-icon.svg') }}" alt="Удалить">
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
+                        <form action="{{ url_for('projects.delete_project', project_id=project.id) }}" method="post" id="delete-section" onsubmit="return confirm('Вы уверены, что хотите удалить раздел?');">
+                            <input type="image" src="{{ url_for('static', filename='admin/manage_panoramas_icon/delete-icon.svg') }}" alt="Удалить">
+                        </form>
+                    </div>
+                </td>
+            </tr>
         </tbody>
     </table>
 {% endblock %}

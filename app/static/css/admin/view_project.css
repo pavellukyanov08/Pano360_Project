@@ -6,7 +6,7 @@ html, body {
 }
 
 .project-info {
-    padding: 30px 0 30px 30px;
+    margin-bottom: 20px;
 }
 
 .project-info__title,
@@ -45,4 +45,79 @@ html, body {
 .add-new-panorama-block a {
     color: #ffffff;
     text-decoration: none;
+}
+
+/* Table */
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 10px 0;
+}
+
+table thead th {
+    font-weight: 500;
+    text-align: left;
+}
+
+table tbody td {
+    font-weight: 400;
+    text-align: left;
+    vertical-align: top;
+}
+
+table tbody #project-img {
+    border-radius: 10px;
+    max-width: 100px;
+}
+
+table thead tr th,
+table tbody tr td {
+    border-bottom: 1px solid lightgrey;
+    padding: 15px 0 15px 0;
+}
+
+/* Sorting */
+table thead th:nth-child(1),
+table tbody td:nth-child(1) {
+    width: 130px;
+}
+
+/* Section's cover */
+table thead th:nth-child(2),
+table tbody td:nth-child(2) {
+    width: 120px;
+}
+
+/* Section's name */
+table thead th:nth-child(3),
+table tbody td:nth-child(3) {
+    width: 550px;
+}
+
+/* Nums proj */
+table thead th:nth-child(4),
+table tbody td:nth-child(4) {
+    width: 200px;
+}
+
+/* Section's manage */
+table thead th:nth-child(5),
+table tbody td:nth-child(5) {
+    width: 220px;
+}
+
+table tbody .project_manage {
+    /*text-align: center;*/
+    vertical-align: center;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 20px;
+}
+
+#delete-section {
+    margin-left: 20px;
 }
