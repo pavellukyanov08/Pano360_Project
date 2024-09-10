@@ -17,12 +17,20 @@
             <img src="{{ url_for('static', filename='logo/pano360-logo.svg') }}" alt="Логотип">
         </div>
         <ul class="left-panel__sections-list">
-            <li class="sections-list__item {% if request.path.startswith(url_for('admin.index')) %} active {% endif %}">
-                <a href="{{ url_for('admin.index') }}">Разделы панорам</a>
-            </li>
-            <li class="sections-list__item {% if request.path == url_for('main_page.main') %} active {% endif %}">
-                <a href="{{ url_for('main_page.main') }}">Главная</a>
-            </li>
+{#            <li class="sections-list__item {% if request.path.startswith(url_for('admin.index')) %} active {% endif %}">#}
+                <a href="{{ url_for('admin.index') }}">
+                    <li class="sections-list__item {% if request.path.startswith(url_for('admin.index')) %} active {% endif %}">
+                        Разделы панорам
+                    </li>
+                </a>
+{#            </li>#}
+{#            <li class="sections-list__item {% if request.path == url_for('main_page.main') %} active {% endif %}">#}
+                <a href="{{ url_for('main_page.main') }}">
+                    <li class="sections-list__item {% if request.path == url_for('main_page.main') %} active {% endif %}">
+                       Главная
+                    </li>
+                </a>
+{#            </li>#}
         </ul>
     </aside>
 

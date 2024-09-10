@@ -35,6 +35,7 @@ h1, h2, h3, h4, p, ul, li {
 
 .sections-list__item {
     padding: 15px 0 15px 15px;
+    cursor: pointer;
 }
 
 .sections-list__item.active {
@@ -42,7 +43,11 @@ h1, h2, h3, h4, p, ul, li {
     border-right: 5px solid #019ef4;
 }
 
-.sections-list__item a {
+/*.sections-list__item a {*/
+/*    text-decoration: none;*/
+/*    color: #000000;*/
+/*}*/
+.left-panel__sections-list a {
     text-decoration: none;
     color: #000000;
 }

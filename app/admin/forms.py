@@ -31,3 +31,11 @@ class PanoramaForm(FlaskForm):
         FileAllowed(['jpg', 'jpeg', 'png', 'gif'], 'Только изображения!')
     ])  # Поле для загрузки изображения
     # section_id = SelectField('Раздел', coerce=int, validators=[DataRequired()])
+
+class SectionLibraryForm(FlaskForm):
+    title = StringField('Наименование фото', validators=[DataRequired()])
+    sort_in_list = IntegerField('Сортировка в списке', validators=[DataRequired()])
+    cover_proj = FileField('Файл', validators=[
+        FileRequired(),
+        FileAllowed(['jpg', 'jpeg', 'png', 'gif'], 'Только изображения!')
+    ])

@@ -68,6 +68,15 @@ class Panorama(db.Model):
         return f'<Panorama {self.title}>'
 
 
+class SectionLibrary(db.Model):
+    __tablename__ = 'section_library'
+
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.String(80), unique=True, nullable=False)
+    material = db.Column(db.String(255), nullable=False)
+
+
+
 class Season(db.Model):
     __tablename__ = 'seasons'
 
